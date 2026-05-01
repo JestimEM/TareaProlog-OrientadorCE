@@ -82,8 +82,10 @@ dialogo(Prefs, _) :-
 dialogo(Prefs, [Tema | Resto]) :-
     preguntar(Tema),
     leer_oracion(Tokens),
-    procesar(Tokens, Tema, Prefs, Resto, NuevasPrefs, NuevosTemas),
-    dialogo(NuevasPrefs, NuevosTemas).
+    ( Tokens = [fin] -> recomendar(Prefs)
+    ; procesar(Tokens, Tema, Prefs, Resto, NuevasPrefs, NuevosTemas),
+      dialogo(NuevasPrefs, NuevosTemas)
+    ).
 
 
 % --------------- Preguntas asociadas a cada tema -------------------
